@@ -1,0 +1,128 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String        @id
+  name          String
+  email         String        @unique
+  password      String
+  comments      Comment[]
+  task_members  TaskMember[]
+  board_members BoardMember[]
+
+  @@map("user")
+}
+
+model BoardMember {
+  board_id String
+  user_id  String
+
+  board Board? @relation(fields: [board_id], references: [id], onDelete: Cascade)
+  user  User?  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@id([board_id, user_id])
+  @@map("board_member")
+}
+
+model Board {
+  id          String   @id
+  name        String
+  create_date DateTime @default(now())
+  is_favorite Boolean  @default(false)
+  color       String
+
+  list        List[]
+  Label       Label[]
+  BoardMember BoardMember[]
+
+  @@map("board")
+}
+
+model List {
+  id       String @id
+  name     String
+  position Int
+  board_id String
+
+  board Board  @relation(fields: [board_id], references: [id], onDelete: Cascade)
+  tasks Task[]
+
+  @@map("list")
+}
+
+model Task {
+  id           String    @id
+  title        String
+  description  String    @db.VarChar(1000)
+  is_important Boolean   @default(false)
+  created_date DateTime  @default(now())
+  due_date     DateTime?
+  color        String
+  list_id      String
+
+  list         List         @relation(fields: [list_id], references: [id], onDelete: Cascade)
+  comments     Comment[]
+  task_labels  TaskLabel[]
+  Task_members TaskMember[]
+
+  @@map("task")
+}
+
+model TaskMember {
+  task_id String
+  user_id String
+
+  task Task? @relation(fields: [task_id], references: [id], onDelete: Cascade)
+  user User? @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@id([task_id, user_id])
+  @@map("task_member")
+}
+
+model Label {
+  id       String @id
+  name     String
+  color    String
+  board_id String
+
+  board Board       @relation(fields: [board_id], references: [id], onDelete: Cascade)
+  tasks TaskLabel[]
+
+  @@map("label")
+}
+
+model TaskLabel {
+  label_id String
+  task_id  String
+
+  task  Task?  @relation(fields: [task_id], references: [id], onDelete: Cascade)
+  label Label? @relation(fields: [label_id], references: [id], onDelete: Cascade)
+
+  @@id([label_id, task_id])
+  @@map("task_label")
+}
+
+model Comment {
+  id           String   @id
+  comment      String   @db.VarChar(500)
+  created_date DateTime @default(now())
+  task_id      String
+  user_id      String
+
+  task Task @relation(fields: [task_id], references: [id], onDelete: Cascade)
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("comment")
+}
