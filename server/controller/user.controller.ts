@@ -26,7 +26,6 @@ export class UserController {
         if (email === undefined || password === undefined) throw invalidBodyError();
         const auth = await this.userService.auth({ email, password })
         setCookie(event, 'token', auth.token)
-        setCookie(event,'theme','dark')
         setCookie(event, 'user', JSON.stringify({
             email: auth.user.email,
             id: auth.user.id

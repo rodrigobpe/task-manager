@@ -21,6 +21,7 @@ model User {
   comments      Comment[]
   task_members  TaskMember[]
   board_members BoardMember[]
+  boards         Board[]
 
   @@map("user")
 }
@@ -42,10 +43,13 @@ model Board {
   create_date DateTime @default(now())
   is_favorite Boolean  @default(false)
   color       String
+  owner       String
 
-  list        List[]
-  Label       Label[]
-  BoardMember BoardMember[]
+  lists         List[]
+  labels        Label[]
+  board_members BoardMember[]
+
+  user User @relation(fields: [owner], references: [id])
 
   @@map("board")
 }
@@ -75,7 +79,7 @@ model Task {
   list         List         @relation(fields: [list_id], references: [id], onDelete: Cascade)
   comments     Comment[]
   task_labels  TaskLabel[]
-  Task_members TaskMember[]
+  task_members TaskMember[]
 
   @@map("task")
 }
