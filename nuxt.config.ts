@@ -10,4 +10,7 @@ export default defineNuxtConfig({
   colorMode: {
     classSuffix: ''
   },
+  runtimeConfig:{
+    apiSecret:process.env.JWT_TOKEN
+  }
 })

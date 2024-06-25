@@ -2,5 +2,6 @@
   "extends": "../.nuxt/tsconfig.server.json",
   "compilerOptions": {
     "strictPropertyInitialization": false
-  }
+  },
+  "exclude": ["../tailwind.config.js"]
 }

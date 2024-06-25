@@ -11,7 +11,7 @@
       <span class="flex h-14">
         <NavHeader />
       </span>
-      <main class="flex min-h-[calc(100vh-60px)] bg-muted overflow-x-auto p-3 lg:p-4">
+      <main class="flex min-h-[calc(100vh-60px)] bg-muted overflow-x-auto">
         <slot/>
       </main>
     </div>

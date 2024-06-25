@@ -39,9 +39,10 @@ export class UserService{
         return tokenRes
     }
 
-    // async getAll(){
-    //     const users = await this.userRepo.getAll()
-    //     if(users.length === 0) throw notFoundError("Nenhum usuário registrado!")
-    //     return users
-    // }
+    async getUserById({id}:{id:string}){
+        const user = await this.userRepo.getById({id})
+        if(!user) throw notFoundError("Usuário não encontrado!");
+
+        return user;
+    }
 }

@@ -1,15 +1,18 @@
 <script setup lang="ts">
-import { CircleUser, Search  } from 'lucide-vue-next'
+import { CircleUser, Search } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
 import { Icon } from '@iconify/vue'
 
+const { getBoardById } = useBoards()
 
-const {changeTheme,iconTheme} = useTheme()
+const { changeTheme, iconTheme } = useTheme()
+
+
 const titleRoute = computed(() => {
     const route = useRoute()
-    if(route.name?.toString().includes('boards')) return 'Boards'
+    if (route.fullPath?.toString().includes('/boards/') && route.params.id) return getBoardById(route.params.id.toString());
     return route.name === 'index' ? 'Dashboards' : route.name
 })
 
@@ -17,8 +20,9 @@ const titleRoute = computed(() => {
 </script>
 
 <template>
-    <header class="flex fixed w-screen md:w-[calc(100vw-220px)] lg:w-[calc(100vw-260px)] h-14 items-center gap-4 border-b bg-background px-4 lg:h-[60px] lg:px-6">
-        <SidebarMobile/>
+    <header
+        class="flex fixed w-screen md:w-[calc(100vw-220px)] lg:w-[calc(100vw-260px)] h-14 items-center gap-4 border-b bg-background px-4 lg:h-[60px] lg:px-6">
+        <SidebarMobile />
         <div class="w-full flex items-center justify-center md:justify-between">
             <h1 class="text-lg hidden md:block capitalize text-foreground font-semibold md:text-2xl">
                 {{ titleRoute }}

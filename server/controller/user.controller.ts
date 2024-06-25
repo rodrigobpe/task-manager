@@ -16,10 +16,12 @@ export class UserController {
         return handlerResponse(event, 200, user)
     }
 
-    // async getAllUsers(event: H3Event) {
-    //     const users = await this.userService.getAll()
-    //     return handlerResponse(event,200,users)
-    // }
+    async getUserById(event: H3Event) {
+        const id = event.id
+        const user = await this.userService.getUserById({id})
+        const {password: _, ...res} = user
+        return handlerResponse(event,200,res)
+    }
 
     async auth(event: H3Event) {
         const { email, password }: AuthUserDto = await readBody(event)
