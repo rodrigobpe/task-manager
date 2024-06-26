@@ -1,24 +1,30 @@
 import type { Board, Color } from "~/types/board"
 
 export const useBoards = () => {
-    const id = ref(2);
-    const boards = ref<Board[]>([
-        { id: '1', color: "rose", title: "Board teste 1" },
-        { id: '2', color: "rose", title: "Board teste 2" },
-    ])
+    const boards = useState<Board[]>('boards')
+    const currentBoard = useState<Board>('currentBoard')
+    const token = useCookie('token')
+    const headers = { 'content-type': 'application/json', 'authorization': `Bearer ${token.value}` }
 
-    const addNewBoard = () => {
-        const listColor: Color[] = ['slate', 'gray', 'zinc', 'neutral', 'stone', 'red', 'orange', 'amber', 'yellow', 'lime', 'green', 'emerald', 'teal', 'cyan', 'sky', 'blue', 'indigo', 'violet', 'purple', 'fuchsia', 'pink', 'rose']
-        const color: Color = listColor[Math.floor(Math.random() * 22)]
-
-        boards.value  = [...boards.value,{ id: `${id.value}`, color, title: `Board teste ${id.value}` } ]
-        id.value++
+    const getAllByOwner = async () => {
+        const { data, error, refresh, execute } = useFetch('/api/me', { headers, immediate: false, watch: false })
+        await execute()
+        boards.value = data.value.data.boards
     }
 
-    const getBoardById = (id: string) => {
-        console.log(boards.value)
-        boards.value.filter((board) => (board.id === id))
+    const favoritesBoards = computed(() => { return boards.value?.length > 0 ? boards.value.filter((board) => { return board.is_favorite }) : false })
+
+    const getBoardById = async (id: string) => {
+        const { data, error, execute } = useFetch(`/api/boards/${id}`, { headers, immediate: false, watch: false })
+        await execute()
+        currentBoard.value = data.value.data
     }
 
-    return { boards, addNewBoard, getBoardById }
+    const updateBoard = async ({ id, name, is_favorite, color }: { id: string, name?: string, is_favorite?: boolean, color?: string }) => {
+        const { data, error, execute } = useFetch(`/api/boards/${id}`, { headers, immediate: false, watch: false, method: 'PATCH', body: { id, name, is_favorite, color }})
+        await execute()
+        currentBoard.value = data.value.data        
+    }
+
+    return { boards, getAllByOwner, getBoardById, updateBoard, favoritesBoards, currentBoard }
 }

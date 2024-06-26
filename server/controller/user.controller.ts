@@ -13,14 +13,16 @@ export class UserController {
         if (email === undefined || name === undefined || password === undefined) { throw invalidBodyError() }
         const newUser = await this.userService.createUser({ email, name, password })
         const { password: _, ...user } = newUser
+
         return handlerResponse(event, 200, user)
     }
 
     async getUserById(event: H3Event) {
         const id = event.id
-        const user = await this.userService.getUserById({id})
-        const {password: _, ...res} = user
-        return handlerResponse(event,200,res)
+        const user = await this.userService.getUserById({ id })
+        const { password: _, ...res } = user
+
+        return handlerResponse(event, 200, res)
     }
 
     async auth(event: H3Event) {
@@ -32,6 +34,14 @@ export class UserController {
             email: auth.user.email,
             id: auth.user.id
         }))
+
         return handlerResponse(event, 201, auth)
+    }
+
+    async deleteUser(event: H3Event) {
+        const { id } = getRouterParams(event)
+        await this.userService.deleteUser({ id });
+
+        return handlerResponse(event, 201, `Usuário com o id '${id}' foi deletado`)
     }
 }

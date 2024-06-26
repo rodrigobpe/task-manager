@@ -5,15 +5,13 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Input } from '@/components/ui/input'
 import { Icon } from '@iconify/vue'
 
-const { getBoardById } = useBoards()
-
 const { changeTheme, iconTheme } = useTheme()
-
+const { currentBoard } = useBoards()
 
 const titleRoute = computed(() => {
     const route = useRoute()
-    if (route.fullPath?.toString().includes('/boards/') && route.params.id) return getBoardById(route.params.id.toString());
-    return route.name === 'index' ? 'Dashboards' : route.name
+    if (route.fullPath?.toString().includes('/boards/') && route.params.id) return currentBoard.value?.name
+    return route.name === 'index' ? 'Dashboard' : route.name
 })
 
 

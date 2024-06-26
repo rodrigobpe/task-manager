@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
 
     const config = useRuntimeConfig()
     const token = authorization?.split(' ')[1];
-
+    
     return jwt.verify(token, config.apiSecret ?? '', async (error: any, result: any) => {
         if (error) return unauthorizedError(error.message)
         const { id } = result as JWToken

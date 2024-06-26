@@ -17,12 +17,13 @@ export class PrismaUserRepo implements UserRepository {
     }
 
     async getById({ id }: Omit<User, "email" | "name" | "password">): Promise<User | null> {
-        return await prisma.user.findFirstOrThrow(
+        return await prisma.user.findFirst(
             { where: { id }, include: { boards: { select: { id: true, name: true, create_date: true, is_favorite: true, color: true } } } }
         )
     }
-    // async getAll(): Promise<User[]> {
-    //     return await prisma.user.findMany()
-    // }
+
+    async delete({ id }: Omit<User, "email" | "name" | "password">): Promise<void> {
+        await prisma.user.delete({ where: { id }, include: { boards: { select: { owner: true } } } })
+    }
 
 }

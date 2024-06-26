@@ -24,5 +24,30 @@ export const useColorsVariants = () => {
         stone: 'bg-stone-400',
     }
 
-    return { colorVariants }
+    const colorVariantsTextHover = {
+        blue: 'hover:text-blue-400',
+        red: 'hover:text-red-400',
+        yellow: 'hover:text-yellow-400',
+        green: 'hover:text-green-400',
+        slate: 'hover:text-slate-400',
+        orange: 'hover:text-orange-400',
+        pink: 'hover:text-pink-400',
+        purple: 'hover:text-purple-400',
+        cyan: 'hover:text-cyan-400',
+        gray: 'hover:text-gray-400',
+        zinc: 'hover:text-zinc-400',
+        neutral: 'hover:text-neutral-400',
+        amber: 'hover:text-amber-400',
+        lime: 'hover:text-lime-400',
+        emerald: 'hover:text-emerald-400',
+        teal: 'hover:text-teal-400',
+        sky: 'hover:text-sky-400',
+        indigo: 'hover:text-indigo-400',
+        violet: 'hover:text-violet-400',
+        fuchsia: 'hover:text-fuchsia-400',
+        rose: 'hover:text-rose-400',
+        stone: 'hover:text-stone-400',
+    }
+
+    return { colorVariants,colorVariantsTextHover }
 }

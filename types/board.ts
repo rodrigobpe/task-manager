@@ -1,6 +1,8 @@
 export type Board = {
     id:string;
-    title:string;
+    name:string;
+    created_date:Date;
+    is_favorite:boolean
     color: Color
 }
 

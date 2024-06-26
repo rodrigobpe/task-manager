@@ -5,14 +5,14 @@ import { hashPassword } from "../util";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
-export class UserService{
-    constructor(private readonly userRepo:UserRepository){}
+export class UserService {
+    constructor(private readonly userRepo: UserRepository) { }
 
-    async createUser({email,name,password}:CreateUserDto){
-        const userExists = await this.userRepo.getByEmail({email})
-        if(userExists) throw badRequestError("Usuário já cadastrado!")
+    async createUser({ email, name, password }: CreateUserDto) {
+        const userExists = await this.userRepo.getByEmail({ email })
+        if (userExists) throw badRequestError("Usuário já cadastrado!")
 
-        const user = await this.userRepo.create({email,name,password:hashPassword(password)})
+        const user = await this.userRepo.create({ email, name, password: hashPassword(password) })
         return user
     }
 
@@ -39,10 +39,17 @@ export class UserService{
         return tokenRes
     }
 
-    async getUserById({id}:{id:string}){
-        const user = await this.userRepo.getById({id})
-        if(!user) throw notFoundError("Usuário não encontrado!");
+    async getUserById({ id }: { id: string }) {
+        const user = await this.userRepo.getById({ id })
+        if (!user) throw notFoundError("Usuário não encontrado!");
 
         return user;
+    }
+
+    async deleteUser({ id }: { id: string }) {
+        const userExists = await this.userRepo.getById({ id })
+        if (!userExists) throw notFoundError("Usuário não encontrado!");
+
+        return await this.userRepo.delete({ id })
     }
 }

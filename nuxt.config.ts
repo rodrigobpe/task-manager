@@ -1,8 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ["@nuxtjs/tailwindcss", "shadcn-nuxt",'@nuxtjs/color-mode'],
-  ssr:true,
-  pages:true,
+  modules: ["@nuxtjs/tailwindcss", "shadcn-nuxt", '@nuxtjs/color-mode'],
+  ssr: true,
+  pages: true,
   shadcn: {
     prefix: '',
     componentDir: './components/ui'
@@ -10,7 +10,7 @@ export default defineNuxtConfig({
   colorMode: {
     classSuffix: ''
   },
-  runtimeConfig:{
-    apiSecret:process.env.JWT_TOKEN
+  runtimeConfig: {
+    apiSecret: process.env.JWT_TOKEN
   }
 })

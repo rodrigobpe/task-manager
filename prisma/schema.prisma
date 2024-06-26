@@ -49,7 +49,7 @@ model Board {
   labels        Label[]
   board_members BoardMember[]
 
-  user User @relation(fields: [owner], references: [id])
+  user User @relation(fields: [owner], references: [id],onDelete: Cascade)
 
   @@map("board")
 }
