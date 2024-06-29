@@ -1,9 +1,9 @@
 import { AuthUserDto, AuthUserResDto, CreateUserDto } from "../dto/user";
-import { badRequestError, notFoundError } from "../error";
+import { badRequestError, notFoundError,unauthorizedError } from "../error";
 import { UserRepository } from "../repository/user.repo";
 import { hashPassword } from "../util";
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
+import jwt, {JwtPayload} from 'jsonwebtoken'
 
 export class UserService {
     constructor(private readonly userRepo: UserRepository) { }
@@ -25,7 +25,7 @@ export class UserService {
 
         const token = jwt.sign({ id: user.id }, process.env.JWT_TOKEN ?? "", {
             subject: user.id,
-            expiresIn: '6h'
+            expiresIn: '24h'
         })
 
         const tokenRes: AuthUserResDto = {
@@ -37,6 +37,18 @@ export class UserService {
         }
 
         return tokenRes
+    }
+
+    async verifyAuth({ token }: { token: string }) {
+        return jwt.verify(token, process.env.JWT_TOKEN ?? '', async (error, result) => {
+            if (error) {
+                return false
+            }
+            const { id } = result as JwtPayload
+            const user = await this.getUserById({ id })
+            if (!user) throw unauthorizedError('Usuário não autorizado')
+            return true
+        })
     }
 
     async getUserById({ id }: { id: string }) {

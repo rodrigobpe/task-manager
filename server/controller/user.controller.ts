@@ -38,6 +38,12 @@ export class UserController {
         return handlerResponse(event, 201, auth)
     }
 
+    async verify(event: H3Event) {
+        const { token } = await readBody(event)        
+        const isAuth = await this.userService.verifyAuth({ token })
+        return handlerResponse(event, 200, isAuth)
+    }
+
     async deleteUser(event: H3Event) {
         const { id } = getRouterParams(event)
         await this.userService.deleteUser({ id });

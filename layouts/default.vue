@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 </script>
 
 <template>
@@ -12,7 +11,7 @@
         <NavHeader />
       </span>
       <main class="flex min-h-[calc(100vh-60px)] bg-muted overflow-x-auto">
-        <slot/>
+        <slot />
       </main>
     </div>
   </div>

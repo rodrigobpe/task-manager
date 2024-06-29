@@ -12,7 +12,7 @@ export const useBoards = () => {
         boards.value = data.value.data.boards
     }
 
-    const favoritesBoards = computed(() => { return boards.value?.length > 0 ? boards.value.filter((board) => { return board.is_favorite }) : false })
+    const favoritesBoards = computed(() => { return boards.value?.length > 0 ? boards.value.filter((board) => { return board.is_favorite }) : [] })
 
     const getBoardById = async (id: string) => {
         const { data, error, execute } = useFetch(`/api/boards/${id}`, { headers, immediate: false, watch: false })

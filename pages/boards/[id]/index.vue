@@ -2,6 +2,8 @@
 import { CirclePlus, ListFilter } from 'lucide-vue-next';
 import { Icon } from '@iconify/vue'
 
+definePageMeta({ middleware: ['guards'] })
+
 const { columns, addColumn, deleteColumn } = useColumns()
 const { getBoardById, currentBoard, updateBoard } = useBoards()
 
