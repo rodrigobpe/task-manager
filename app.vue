@@ -1,6 +1,6 @@
 <template>
+  <Toaster class="absolute top-0 right-0" />
   <NuxtLayout>
-    <Toaster class="absolute top-0 right-0" />
     <NuxtPage />
   </NuxtLayout>
 </template>

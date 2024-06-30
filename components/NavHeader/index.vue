@@ -15,6 +15,12 @@ const titleRoute = computed(() => {
 })
 
 
+const logout = () => {
+    useCookie("user").value = null
+    useCookie("token").value = null
+    return navigateTo('/auth/login')
+}
+
 </script>
 
 <template>
@@ -51,7 +57,7 @@ const titleRoute = computed(() => {
                 <DropdownMenuItem>Settings</DropdownMenuItem>
                 <DropdownMenuItem>Support</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Logout</DropdownMenuItem>
+                <DropdownMenuItem class="cursor-pointer" @click.prevent="logout">Logout</DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     </header>

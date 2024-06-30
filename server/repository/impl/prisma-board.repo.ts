@@ -18,7 +18,7 @@ export class PrismaBoardRepo implements BoardRepository {
     }
 
     async getBoardById({ id }: { id: string; }): Promise<Board | null> {
-        return await prisma.board.findFirstOrThrow(
+        return await prisma.board.findFirst(
             {
                 where: { id },
                 include: {

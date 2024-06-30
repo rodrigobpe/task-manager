@@ -19,7 +19,7 @@ const form = useForm({
     validationSchema: formSchema,
 })
 
-const onSubmit = form.handleSubmit(async(values) => {
+const onSubmit = form.handleSubmit(async (values) => {
     loading.value = true
     await authenticateUser(values)
     loading.value = false
@@ -41,7 +41,8 @@ const disabledButton = computed(() => {
                     <FormLabel>E-mail</FormLabel>
                     <FormItem>
                         <FormControl>
-                            <Input class="h-12 mt-1" type="text" placeholder="rodrigo@teste.com" v-bind="componentField" />
+                            <Input class="h-12 mt-1" type="text" placeholder="rodrigo@teste.com"
+                                v-bind="componentField" />
                         </FormControl>
                         <FormMessage />
                     </FormItem>
@@ -50,7 +51,8 @@ const disabledButton = computed(() => {
                     <FormLabel>Senha</FormLabel>
                     <FormItem class="">
                         <FormControl>
-                            <Input class="h-12 mt-1" type="password" placeholder="Insira sua senha..." v-bind="componentField" />
+                            <Input class="h-12 mt-1" type="password" placeholder="Insira sua senha..."
+                                v-bind="componentField" />
                         </FormControl>
                         <FormMessage />
                     </FormItem>
