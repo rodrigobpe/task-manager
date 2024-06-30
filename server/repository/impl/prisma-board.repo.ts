@@ -24,7 +24,7 @@ export class PrismaBoardRepo implements BoardRepository {
                 include: {
                     labels: true,
                     board_members: { select: { user: { select: { id: true, name: true, email: true } } } },
-                    lists: true
+                    lists: { select: { id: true, name: true, position: true } }
                 }
             }
         )

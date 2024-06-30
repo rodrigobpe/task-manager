@@ -33,7 +33,6 @@ const disabledButton = computed(() => {
 
 </script>
 <template>
-    <Toaster class="absolute top-0 right-0"/>
     <div class="flex flex-col md:flex-row justify-center items-center h-full w-full">
         <div class="w-full flex flex-col items-center justify-center h-full md:w-[55%]">
             <form @submit.prevent="onSubmit" class="w-[320px] h-[400px]">
@@ -64,7 +63,7 @@ const disabledButton = computed(() => {
             </form>
         </div>
         <div
-            class="hidden justify-center items-center bg-primary/70 h-full md:rounded-bl-[18rem] md:flex md:w-[45%] gap-4">
+            class="hidden justify-center items-center bg-primary h-full md:rounded-bl-[18rem] md:flex md:w-[45%] gap-4">
             <ClipboardList class="w-12 h-12 text-yellow-400" />
             <h1 class="text-5xl">Task Manager</h1>
         </div>

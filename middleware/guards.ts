@@ -4,10 +4,10 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     if (token) {
         const { data: isValidToken } = await useAuth().verifyToken(token)
         if (!isValidToken.value.data) {
-            return navigateTo('/auth/login')
+            return await navigateTo('/auth/login')
         }
 
     } else {
-        return navigateTo('/boards')
+        return await navigateTo('/boards')
     }
 })

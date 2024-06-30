@@ -10,7 +10,7 @@
       <span class="flex h-14">
         <NavHeader />
       </span>
-      <main class="flex min-h-[calc(100vh-60px)] bg-muted overflow-x-auto">
+      <main class="flex h-[calc(100vh-60px)] max-w-[calc(100vw-260px)] bg-muted">
         <slot />
       </main>
     </div>

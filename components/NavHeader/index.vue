@@ -19,7 +19,7 @@ const titleRoute = computed(() => {
 
 <template>
     <header
-        class="flex fixed w-screen md:w-[calc(100vw-220px)] lg:w-[calc(100vw-260px)] h-14 items-center gap-4 border-b bg-background px-4 lg:h-[60px] lg:px-6">
+        class="flex fixed w-screen md:w-[calc(100vw-220px)] lg:w-[calc(100vw-260px)] h-14 items-center gap-4 border-b bg-background p-4 lg:h-[60px]">
         <SidebarMobile />
         <div class="w-full flex items-center justify-center md:justify-between">
             <h1 class="text-lg hidden md:block capitalize text-foreground font-semibold md:text-2xl">

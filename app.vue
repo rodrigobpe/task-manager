@@ -1,13 +1,13 @@
 <template>
   <NuxtLayout>
-    <NuxtPage/>
+    <Toaster class="absolute top-0 right-0" />
+    <NuxtPage />
   </NuxtLayout>
 </template>
 
 <style>
-html{
+html {
   scrollbar-width: thin;
   scrollbar-color: hsl(var(--muted)) hsl(var(--background));
 }
-
 </style>

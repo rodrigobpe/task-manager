@@ -24,8 +24,6 @@ export class BoardControler {
     async updateBoard(event: H3Event) {
         const { id } = getRouterParams(event)
         const { color, is_favorite, name } = await readBody(event)
-        console.log(color, is_favorite, name);
-
         if (color === undefined && name === undefined && is_favorite === undefined) throw invalidBodyError();
         const boardUpdated = await this.boardService.updateBoard({ id, color, is_favorite, name })
 
