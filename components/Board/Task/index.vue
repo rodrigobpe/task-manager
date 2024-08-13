@@ -8,6 +8,13 @@ interface Props {
 
 const { task } = defineProps<Props>()
 
+const colorFlag = {
+    true: "text-red-500",
+    false: "text-gray-500"
+}
+
+const { colorVariantsLabel } = useColorsVariants()
+
 </script>
 
 <template>
@@ -15,23 +22,22 @@ const { task } = defineProps<Props>()
         <DialogTrigger asChild>
             <div
                 class="flex flex-col mr-2 my-1 max-w-full rounded-xl p-3 bg-muted cursor-grab ring-primary hover:ring-2">
-                <h1 class="mt-2 break-words font-bold">{{ task.title }}</h1>
-                <div class="w-full mt-2 max-w-full text-xs flex flex-wrap gap-2">
-                    <span class="flex rounded-md  text-red-500 py-1 px-2 bg-red-100">BI</span>
-                    <span class="flex rounded-md text-blue-500 py-1 px-2 bg-blue-100">Mídia</span>
-                    <span class="flex rounded-md  text-green-500 py-1 px-2 bg-green-100">CS</span>
-                    <span class="flex rounded-md  text-yellow-500 py-1 px-2 bg-yellow-100">Operações</span>
+                <h1 class="break-words font-bold">{{ task.title }}</h1>
+                <div v-if="task.task_labels.length > 0" class="w-full mt-2 max-w-full text-xs flex flex-wrap gap-2">
+                    <span class="flex rounded-md" v-for="label in task.task_labels"
+                        :class="colorVariantsLabel[label.color]"> {{ label.name }} </span>
                 </div>
                 <div class="mt-2 text-sm flex gap-2 flex-col items-start">
-                    <Text />
+                    <div class="flex items-center justify-between gap-2 ">
+                        <div class="flex items-center gap-1">
+                            <Text />
+                            <FlagIcon class="h-4 w-4" :class="[colorFlag[`${task.is_important}`]]" />
+                            <p class="text-muted-foreground text-sm">{{ task.due_date }}</p>
+                        </div>
+                    </div>
                     {{ task.description }}
                 </div>
-                <div class="flex items-center justify-between gap-2 mt-2">
-                    <div class="flex items-center gap-1">
-                        <FlagIcon class="h-4 w-4 text-red-500" />
-                        <p class="text-muted-foreground text-sm">21/10/2002</p>
-                    </div>
-                </div>
+
                 <div class="flex mt-2">
                     <span class="flex h-7 w-7 bg-background rounded-full ring-1 ring-foreground"></span>
                     <span v-for="i in 2" :key="i"

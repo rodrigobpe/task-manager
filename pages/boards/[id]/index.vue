@@ -41,7 +41,7 @@ const disabledButton = computed(() => {
                             Adicionar lista
                         </button>
                     </DialogTrigger>
-                    <DialogContent className="sm:max-w-[320px]">
+                    <DialogContent>
                         <DialogHeader>
                             <DialogTitle class="text-3xl">Crie uma nova coluna</DialogTitle>
                         </DialogHeader>
@@ -82,7 +82,7 @@ const disabledButton = computed(() => {
         </div>
         <div v-if="!loading"
             class="gap-4 md:flex md:max-w-[calc(100vw-260px)] overflow-x-auto overflow-y-hidden md:items-start md:self-start p-4">
-            <BoardList v-for="list in lists" :list="list" :key="list.id" @delete:list="deleteList({id:list.id,board_id:String(useRoute().params?.id)})" />
+            <BoardList v-for="list in lists" :list="list" :key="list.id" :tasks="list.tasks" @delete:list="deleteList({id:list.id,board_id:String(useRoute().params?.id)})" />
         </div>
     </div>
 
